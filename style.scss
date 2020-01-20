@@ -1,0 +1,59 @@
+@import './_reset';
+// @import './setting';
+@import './_component';
+
+.Block {
+	background: #000;
+	&--inner {
+	}
+	&--h1 {
+	}
+	&--p {
+	}
+	&--left {
+		&_up {
+			&_list {
+				&_item {
+					@extend %list_item;
+
+					color: gray;
+					&-red {
+						color: red;
+					}
+					&-black {
+						color: black;
+					}
+					&-green {
+						color: green;
+					}
+					&-blue {
+						color: blue;
+					}
+					.item_a {
+					}
+					.item_p {
+					}
+				}
+			}
+		}
+		&_down {
+			&_list {
+			}
+			&_item {
+				.item_a {
+				}
+				.item_p {
+				}
+			}
+		}
+	}
+	&--btn {
+		@extend %btn;
+
+		margin-top: 20px;
+	}
+	&--right {
+		&_img {
+		}
+	}
+}

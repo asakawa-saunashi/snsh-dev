@@ -1,0 +1,174 @@
+/*
+===============================================================================
+BEFORE/AFTER
+===============================================================================
+*/
+@mixin before {
+	&::before {
+		content: '';
+		display: block;
+		@content;
+	}
+}
+@mixin after {
+	&::after {
+		content: '';
+		display: block;
+		@content;
+	}
+}
+/*
+===============================================================================
+SIRCLE
+===============================================================================
+*/
+@mixin circle {
+	border-radius: 50%;
+}
+/*
+===============================================================================
+COLOR
+===============================================================================
+*/
+// example array
+$color-data: (black, red, blue, green);
+
+@function get-color($color-number: 0) {
+	@return nth($color-data, $color-number);
+}
+
+@mixin rgba($color-code, $opacity) {
+	color: rgba($color-code, $opacity);
+}
+
+/*
+===============================================================================
+FLEX
+===============================================================================
+*/
+@function flex-box($type: 0) {
+	@if (($type = 0)) {
+		@return 'flex';
+	} @else if(($type = 1)) {
+		@return 'inline-flex';
+	}
+}
+
+@mixin flex($type) {
+	display: flex-box($type);
+	@content;
+}
+
+/*
+===============================================================================
+FONT
+===============================================================================
+*/
+@mixin perfect-font-VW($max-width, $min-width, $max-font-size, $min-font-size) {
+	$a: ($max-font-size - $min-font-size) / ($max-width - $min-width);
+	$b: ($a * 100) + vw;
+	$c: ($min-font-size - $a * $min-width) + px;
+	font-size: $min-font-size + px;
+	@media (min-width: $min-width  + px) {
+		font-size: calc(#{$b} + #{$c});
+	}
+	@media (min-width: $max-width  + px) {
+		font-size: $max-font-size + px;
+	}
+}
+/*
+===============================================================================
+HOVER
+===============================================================================
+*/
+// IEに効かない
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+/*
+〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+MEMO
+〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+
+先頭一致
+selecter[class^="AAA-"]{}
+
+後尾一致
+selecter[class$="-AAA"]{}
+selecter[href$=".pdf"]{}
+
+部分一致
+selecter[class*="AAA"]{}
+selecter[class*=" AAA-"]{}
+
+空白
+div:empty{}
+
+対応の判定 (いずれmixin)
+@supports
+unicode-range
+
+
+border-image
+*/
+.example {
+	box-decoration-break: clone; /* テキストの後ろに帯 */
+}
+
+// タッチ
+.example {
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
+	-webkit-touch-callout: none;
+}
+
+// 選択
+::selection {
+	background: #000;
+	color: #ffffff;
+}
+::-moz-selection /* for Firefox */ {
+	background: #000;
+	color: #ffffff;
+}
+
+// 禁則処理
+.example {
+	word-break: normal;
+}
+/*
+
+
+候補
+
+
+*/
+
+@mixin scroll-behavoor {
+	scroll-behavior: smooth;
+}
+
+$pc: 801px; // PC
+$tab: 800px; // タブレット
+$sp: 500px; // スマホ
+@mixin pc {
+	@media screen and (min-width: ($pc)) {
+		@content;
+	}
+}
+@mixin tab {
+	@media screen and (max-width: ($tab)) {
+		@content;
+	}
+}
+@mixin sp {
+	@media screen and (max-width: ($sp)) {
+		@content;
+	}
+}
+/* decoding="async" */
